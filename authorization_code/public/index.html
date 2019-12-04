@@ -65,6 +65,10 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   <script>
+    ///////////////////my code///////////////////////////////
+    var userData;
+    var userPlaylistData;
+    ////////////////////////////////////////////////////////
     (function () {
 
       /**
@@ -105,6 +109,7 @@
             refresh_token: refresh_token
           });
 
+
           $.ajax({
             url: 'https://api.spotify.com/v1/me',
             headers: {
@@ -112,6 +117,8 @@
             },
             success: function (response) {
               console.log(response);
+              userData = response;
+              console.log(userData);
               userProfilePlaceholder.innerHTML = userProfileTemplate(response);
 
               $('#login').hide();
@@ -125,22 +132,47 @@
         }
 
         document.getElementById('obtain-new-token').addEventListener('click', function () {
+
           $.ajax({
             url: '/refresh_token',
             data: {
               'refresh_token': refresh_token
             }
           }).done(function (data) {
-            console.log(data);
             access_token = data.access_token;
             oauthPlaceholder.innerHTML = oauthTemplate({
               access_token: access_token,
               refresh_token: refresh_token
             });
           });
+          /////////////////////////////////////my code here//////////////////////////////////////////////
+
+
+          console.log('playlist data begins. public and private playlist object');
+
+
+          //gets playlist info -> userPlaylistData
+          $.ajax({
+            url: 'https://api.spotify.com/v1/users/' + userData.id + '/playlists?limit=3&offset=0',
+            type: 'GET',
+            headers: {
+              'Authorization': 'Bearer ' + access_token,
+            },
+            success: function (data) {
+              userPlaylistData = data;
+              console.log(userPlaylistData);
+            }
+          });
+
+
+
+          ////////////////////////////////////////////////////////////////////
         }, false);
+
       }
     })();
+
+
   </script>
 </body>
 

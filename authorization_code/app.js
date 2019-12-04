@@ -46,7 +46,11 @@ app.get('/login', function (req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+
+  // required scopes
+  var scope = 'user-read-private user-read-email playlist-read-private';
+
+  // redirect
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -142,6 +146,6 @@ app.get('/refresh_token', function (req, res) {
     }
   });
 });
-console.log('access token is ' + access_token);
+
 console.log('Listening on 8888');
 app.listen(8888);

@@ -9,8 +9,8 @@
 
 var request = require('request'); // "Request" library
 
-var client_id = 'CLIENT_ID'; // Your client id
-var client_secret = 'CLIENT_SECRET'; // Your secret
+var client_id = 'a95607d988d845b8aa8c38e6c722e09a'; // Your client id
+var client_secret = 'f39ba4f139264de5b01e8c8180eeafe5'; // Your secret
 
 // your application requests authorization
 var authOptions = {
@@ -24,7 +24,7 @@ var authOptions = {
   json: true
 };
 
-request.post(authOptions, function(error, response, body) {
+request.post(authOptions, function (error, response, body) {
   if (!error && response.statusCode === 200) {
 
     // use the access token to access the Spotify Web API
@@ -36,7 +36,7 @@ request.post(authOptions, function(error, response, body) {
       },
       json: true
     };
-    request.get(options, function(error, response, body) {
+    request.get(options, function (error, response, body) {
       console.log(body);
     });
   }

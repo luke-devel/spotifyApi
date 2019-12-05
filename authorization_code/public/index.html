@@ -153,13 +153,14 @@
 
           //gets playlist info -> userPlaylistData
           $.ajax({
-            url: 'https://api.spotify.com/v1/users/' + userData.id + '/playlists?limit=3&offset=0',
+            url: 'https://api.spotify.com/v1/users/' + userData.id + '/playlists?offset=0',
             type: 'GET',
             headers: {
               'Authorization': 'Bearer ' + access_token,
             },
             success: function (data) {
               userPlaylistData = data;
+              // logs playlists json object
               console.log(userPlaylistData);
             }
           });
@@ -171,9 +172,8 @@
 
       }
     })();
-
-
   </script>
+
 </body>
 
 </html>
